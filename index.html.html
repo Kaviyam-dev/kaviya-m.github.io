@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaviya M — .NET Engineer & SQL Specialist, Chennai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0D0F14;
+  --bg2:#111318;
+  --bg3:#161A22;
+  --bg4:#1C2130;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.12);
+  --text:#E8E4DC;
+  --text2:rgba(232,228,220,0.6);
+  --text3:rgba(232,228,220,0.35);
+  --gold:#D4A843;
+  --gold2:#F0C060;
+  --gold3:rgba(212,168,67,0.15);
+  --gold4:rgba(212,168,67,0.06);
+  --teal:#4ECDC4;
+  --teal2:rgba(78,205,196,0.12);
+  --ivory:#F0EBE0;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',sans-serif;
+  --mono:'Martian Mono',monospace;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none}
+
+/* ── CURSOR ── */
+#cur{position:fixed;width:12px;height:12px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,box-shadow .25s;mix-blend-mode:normal}
+#cur-ring{position:fixed;width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(212,168,67,0.5);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s var(--ease),height .4s var(--ease),border-color .3s,opacity .3s}
+.c-hover #cur{width:48px;height:48px;background:rgba(212,168,67,0.15);border:1.5px solid var(--gold);box-shadow:0 0 20px rgba(212,168,67,0.4)}
+.c-hover #cur-ring{width:72px;height:72px;border-color:rgba(212,168,67,0.25);opacity:0.5}
+
+/* ── ANIMATED BG CANVAS ── */
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ── PROGRESS ── */
+#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--teal));z-index:1001;transition:width .1s linear;width:0}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:0 60px;height:68px;background:rgba(13,15,20,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:height .3s}
+nav.scrolled{height:56px}
+.nav-mark{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1.5px solid var(--gold);font-family:var(--serif);font-size:16px;font-style:italic;color:var(--gold);transition:all .3s}
+.nav-mark:hover{background:var(--gold);color:var(--bg)}
+.nav-links{display:flex;gap:36px}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text2);text-decoration:none;transition:color .2s;position:relative;cursor:none}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-hire{font-family:var(--mono);font-size:11px;letter-spacing:.1em;padding:10px 26px;background:transparent;color:var(--gold);border:1px solid var(--gold);transition:all .25s;cursor:none}
+.nav-hire:hover{background:var(--gold);color:var(--bg);box-shadow:0 0 24px rgba(212,168,67,0.35)}
+.nav-contacts{display:flex;align-items:center;gap:6px}
+.nav-contact-link{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--border2);color:var(--text3);text-decoration:none;transition:all .25s;cursor:none}
+.nav-contact-link:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,.06)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;z-index:1}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:140px 72px 80px;border-right:1px solid var(--border)}
+.hero-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:14px}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold)}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pdot 2s infinite}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(78,205,196,.5)}50%{box-shadow:0 0 0 6px rgba(78,205,196,0)}}
+.hero-name{font-family:var(--serif);font-size:clamp(60px,6.5vw,104px);font-weight:300;line-height:.92;letter-spacing:-.02em;margin-bottom:22px;color:var(--ivory)}
+.hero-name em{font-style:normal;color:var(--gold)}
+.hero-title{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);margin-bottom:32px}
+.hero-desc{font-size:15px;line-height:1.9;color:var(--text2);max-width:460px;margin-bottom:52px}
+.hero-desc strong{color:var(--text);font-weight:500}
+.hero-btns{display:flex;gap:14px}
+.btn-primary{font-family:var(--mono);font-size:11px;letter-spacing:.1em;padding:14px 34px;background:var(--gold);color:var(--bg);font-weight:500;text-decoration:none;border:1px solid var(--gold);transition:all .3s;cursor:none}
+.btn-primary:hover{background:transparent;color:var(--gold);box-shadow:0 0 28px rgba(212,168,67,.25)}
+.btn-sec{font-family:var(--mono);font-size:11px;letter-spacing:.1em;padding:14px 34px;background:transparent;color:var(--text2);text-decoration:none;border:1px solid var(--border2);transition:all .3s;cursor:none}
+.btn-sec:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── CAREER PANEL ── */
+.hero-right{display:flex;flex-direction:column;justify-content:center;padding:140px 72px 80px;position:relative;overflow:hidden}
+.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(212,168,67,0.05) 0%,transparent 70%);pointer-events:none}
+.glance-label{font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:40px;padding-bottom:14px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between}
+.glance-label span{color:var(--text3);font-size:9px}
+
+/* Career timeline cards */
+.career-cards{display:flex;flex-direction:column;gap:0;margin-bottom:48px}
+.career-card{padding:20px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;transition:all .25s;position:relative;cursor:none}
+.career-card::before{content:'';position:absolute;left:-24px;top:0;bottom:0;width:2px;background:var(--border);transition:background .3s}
+.career-card:hover::before{background:var(--gold)}
+.career-card:hover{padding-left:8px}
+.cc-year{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;min-width:36px}
+.cc-role{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--text);line-height:1.3}
+.cc-co{font-size:11px;color:var(--text3);margin-top:2px}
+.cc-badge{font-family:var(--mono);font-size:9px;letter-spacing:.08em;padding:4px 10px;border-radius:2px}
+.cc-badge.current{background:rgba(78,205,196,.12);color:var(--teal);border:1px solid rgba(78,205,196,.2)}
+.cc-badge.past{background:var(--bg3);color:var(--text3);border:1px solid var(--border)}
+
+/* Metric strip */
+.metric-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.metric{background:var(--bg2);padding:20px;text-align:center;transition:background .2s}
+.metric:hover{background:var(--bg3)}
+.metric-val{font-family:var(--serif);font-size:38px;font-weight:300;color:var(--ivory);line-height:1;margin-bottom:6px}
+.metric-val em{font-style:italic;color:var(--gold);font-size:28px}
+.metric-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
+
+/* ── SECTION ── */
+.sw{padding:100px 0;position:relative;z-index:1}
+.sw.dark{background:var(--bg2)}
+.si{max-width:1280px;margin:0 auto;padding:0 72px}
+.sh{display:grid;grid-template-columns:1fr 2fr;gap:72px;margin-bottom:72px;align-items:end}
+.s-idx{font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--gold);margin-bottom:10px}
+.s-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.s-h{font-family:var(--serif);font-size:clamp(36px,4vw,58px);font-weight:300;line-height:1.1;color:var(--ivory);letter-spacing:-.01em}
+.s-h em{font-style:italic;color:var(--gold)}
+.s-sub{font-size:14px;line-height:1.85;color:var(--text2);max-width:400px;align-self:end;font-weight:300}
+.divider{height:1px;background:linear-gradient(90deg,var(--gold),rgba(212,168,67,.2),transparent);position:relative;z-index:1}
+
+/* ── TOOLS ── */
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border)}
+.tool-card{background:var(--bg);padding:56px;position:relative;overflow:hidden;transition:background .3s;cursor:none}
+.tool-card:hover{background:var(--bg2)}
+.tool-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--teal),transparent);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.tool-card:hover::after{transform:scaleX(1)}
+.tool-bg-num{position:absolute;bottom:-20px;right:24px;font-family:var(--serif);font-size:160px;font-weight:300;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;transition:color .3s}
+.tool-card:hover .tool-bg-num{color:rgba(212,168,67,.04)}
+.tool-chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;padding:5px 13px;border:1px solid rgba(212,168,67,.3);color:var(--gold);background:rgba(212,168,67,.06);margin-bottom:28px}
+.chip-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pdot 2s infinite}
+.tool-name{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--ivory);margin-bottom:6px;line-height:1}
+.tool-tl{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+.tool-desc{font-size:14px;line-height:1.85;color:var(--text2);margin-bottom:32px;font-weight:300}
+.tool-feats{display:flex;flex-direction:column;gap:12px;margin-bottom:36px;padding-top:24px;border-top:1px solid var(--border)}
+.feat{display:flex;align-items:flex-start;gap:14px;font-size:13px;color:var(--text2);line-height:1.65}
+.feat-ico{width:24px;height:24px;border:1px solid rgba(212,168,67,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:var(--gold);margin-top:1px;transition:all .2s}
+.tool-card:hover .feat-ico{border-color:rgba(212,168,67,.6);background:rgba(212,168,67,.06)}
+.tool-tags{display:flex;flex-wrap:wrap;gap:8px;padding-top:28px;border-top:1px solid var(--border)}
+.ttag{font-family:var(--mono);font-size:9px;letter-spacing:.1em;padding:5px 12px;border:1px solid var(--border2);color:var(--text3);text-transform:uppercase;transition:all .2s;cursor:none}
+.ttag:hover{border-color:var(--gold);color:var(--gold);background:var(--gold4)}
+
+/* ── EXPERIENCE ── */
+.exp-table{width:100%;border-collapse:collapse}
+.exp-row{border-bottom:1px solid var(--border);cursor:none;transition:all .2s}
+.exp-row:hover{background:rgba(212,168,67,.03)}
+.exp-row td{padding:28px 0;vertical-align:top}
+.exp-row td:first-child{width:52px;padding-right:20px}
+.exp-num{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--text3)}
+.exp-period{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--text3);width:170px;padding-right:48px;padding-top:5px}
+.exp-role{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--ivory);margin-bottom:4px}
+.exp-co{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.exp-bullets{display:flex;flex-direction:column;gap:8px;padding-top:10px}
+.exp-bullet{font-size:13px;color:var(--text2);line-height:1.7;display:flex;gap:12px}
+.exp-bullet::before{content:'—';color:var(--gold);flex-shrink:0;font-family:var(--mono);font-size:11px;padding-top:2px}
+.exp-bullet.more{display:none}
+.exp-row.open .exp-bullet.more{display:flex}
+.exp-tog{width:36px;height:36px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--text3);cursor:none;transition:all .25s;flex-shrink:0;user-select:none;line-height:1}
+.exp-row.open .exp-tog{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.exp-tog-cell{text-align:right;padding-left:20px!important}
+
+/* ── SKILLS MATRIX ── */
+.skills-wrap{display:none}
+.skills-matrix{max-width:1280px;margin:0 auto;padding:0 72px;display:flex;flex-direction:column;gap:2px}
+.sm-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.sm-row.full{grid-template-columns:1fr}
+.skill-block{background:var(--bg2);padding:36px 40px;transition:background .25s,border-color .25s;cursor:none;border:1px solid transparent;position:relative;overflow:hidden}
+.skill-block::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--gold),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.skill-block:hover{background:var(--bg3);border-color:var(--border2)}
+.skill-block:hover::after{transform:scaleX(1)}
+.sk-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.sk-icon{width:32px;height:32px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text3);flex-shrink:0;margin-top:2px;transition:all .25s}
+.skill-block:hover .sk-icon{border-color:rgba(212,168,67,.4);color:var(--gold)}
+.sk-cat{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.sk-note{font-size:11px;color:var(--text3);font-weight:300;letter-spacing:.02em}
+.sk-items{display:flex;flex-wrap:wrap;gap:7px}
+.sk-item{font-size:12px;font-weight:400;color:var(--text2);padding:5px 13px;border:1px solid var(--border);transition:all .2s;letter-spacing:.02em}
+.sk-item:hover{color:var(--ivory);border-color:rgba(212,168,67,.4);background:rgba(212,168,67,.06)}
+.sk-item.primary{color:var(--text);border-color:var(--border2)}
+.sk-item.primary:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,.08)}
+.sk-item .yr{font-family:var(--mono);font-size:9px;margin-left:7px;padding:1px 6px;background:rgba(212,168,67,.12);color:var(--gold);border-radius:2px;letter-spacing:.04em;vertical-align:middle}
+.skill-block.ai-block .sk-item .yr{background:rgba(212,168,67,.15);color:var(--gold2)}
+.skill-block.db-block .sk-item .yr{background:rgba(78,205,196,.1);color:var(--teal)}
+/* AI block */
+.skill-block.ai-block{background:rgba(212,168,67,.025);border-color:rgba(212,168,67,.1)!important}
+.skill-block.ai-block:hover{background:rgba(212,168,67,.055)}
+.skill-block.ai-block .sk-icon{border-color:rgba(212,168,67,.3);color:var(--gold)}
+.skill-block.ai-block .sk-cat{color:var(--gold2)}
+.skill-block.ai-block .sk-item{border-color:rgba(212,168,67,.18);color:rgba(232,228,220,.75)}
+.skill-block.ai-block .sk-item.primary{color:var(--gold2);border-color:rgba(212,168,67,.35)}
+.skill-block.ai-block .sk-item:hover{color:var(--gold2);border-color:rgba(212,168,67,.5);background:rgba(212,168,67,.1)}
+/* DB block */
+.skill-block.db-block .sk-icon{border-color:rgba(78,205,196,.25);color:var(--teal)}
+.skill-block.db-block .sk-cat{color:var(--teal)}
+.skill-block.db-block::after{background:linear-gradient(90deg,var(--teal),transparent)}
+.skill-block.db-block .sk-item.primary:hover{color:var(--teal);border-color:rgba(78,205,196,.4);background:rgba(78,205,196,.06)}
+/* Lang block */
+.skill-block.lang-block .sk-icon{border-color:rgba(212,168,67,.25);color:var(--gold)}
+
+/* ── CERTS ── */
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.cert-card{background:var(--bg2);border:1px solid var(--border);padding:28px;position:relative;overflow:hidden;transition:all .35s var(--ease);text-decoration:none;display:block;cursor:none}
+.cert-card:hover{border-color:rgba(212,168,67,.4);transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.4),0 0 0 1px rgba(212,168,67,.1)}
+.cert-card::before{content:'';position:absolute;top:0;left:0;width:2px;bottom:0;background:linear-gradient(180deg,var(--gold),transparent);transform:scaleY(0);transform-origin:top;transition:transform .35s var(--ease)}
+.cert-card:hover::before{transform:scaleY(1)}
+.cert-issuer{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cert-arr{font-size:14px;color:var(--text3);transition:all .3s;transform:rotate(-45deg)}
+.cert-card:hover .cert-arr{color:var(--gold);transform:rotate(0deg)}
+.cert-name{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--text);line-height:1.4;margin-bottom:14px}
+.cert-val{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em}
+.cert-val.live{color:var(--teal)}
+
+/* ── ACHIEVEMENTS ── */
+.ach-list{display:flex;flex-direction:column;gap:0}
+.ach-row{display:grid;grid-template-columns:72px 1fr auto;gap:0;padding:40px 0;border-bottom:1px solid var(--border);align-items:center;transition:all .2s;cursor:none}
+.ach-row:hover{background:rgba(212,168,67,.03);padding-left:12px;padding-right:12px;margin:0 -12px}
+.ach-n{font-family:var(--serif);font-size:52px;font-weight:300;color:rgba(255,255,255,.06);font-style:italic;line-height:1;transition:color .25s}
+.ach-row:hover .ach-n{color:rgba(212,168,67,.15)}
+.ach-title{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--ivory);margin-bottom:8px;line-height:1.2}
+.ach-desc{font-size:13px;color:var(--text2);line-height:1.75;max-width:640px;font-weight:300}
+.ach-tag{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(212,168,67,.3);color:var(--gold);background:rgba(212,168,67,.06);flex-shrink:0;margin-left:32px}
+
+/* ── CONTACT ── */
+.contact-wrap{background:var(--bg2);padding:120px 72px;position:relative;overflow:hidden;border-top:1px solid var(--border);z-index:1}
+.contact-wrap::after{content:'KM';position:absolute;font-family:var(--serif);font-size:300px;font-weight:300;color:rgba(255,255,255,.018);top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;letter-spacing:.05em}
+.contact-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
+.contact-h{font-family:var(--serif);font-size:clamp(44px,5vw,72px);font-weight:300;line-height:1.05;color:var(--ivory);margin-bottom:18px}
+.contact-h em{font-style:italic;color:var(--gold)}
+.contact-sub{font-size:14px;color:var(--text2);line-height:1.85;font-weight:300}
+.clinks{display:flex;flex-direction:column;gap:3px}
+.clink{display:flex;align-items:center;justify-content:space-between;padding:22px 28px;border:1px solid var(--border);color:var(--text);text-decoration:none;transition:all .3s var(--ease);cursor:none}
+.clink:hover{border-color:rgba(212,168,67,.4);background:rgba(212,168,67,.05);padding-left:38px;box-shadow:inset 2px 0 0 var(--gold)}
+.clink-l{display:flex;align-items:center;gap:18px}
+.clink-type{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);width:60px}
+.clink-val{font-size:13px;font-weight:300;color:var(--text2)}
+.clink-arrow{font-size:16px;color:var(--text3);transform:rotate(-45deg);transition:all .3s}
+.clink:hover .clink-arrow{color:var(--gold);transform:rotate(0deg)}
+
+/* ── SCROLL REVEAL ── */
+.sr{opacity:0;transform:translateY(36px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.sr.sl{transform:translateX(-36px)}
+.sr.sr2{transform:translateX(36px)}
+.sr.on{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  nav{padding:0 28px}
+  .nav-links{display:none}
+  .nav-contacts{display:none}
+  .si{padding:0 28px}
+  .sh{grid-template-columns:1fr;gap:24px}
+  .tools-grid{grid-template-columns:1fr}
+  .skills-matrix{padding:0 28px}
+  .sm-row{grid-template-columns:1fr 1fr}
+  .certs-grid{grid-template-columns:1fr 1fr}
+  .contact-inner{grid-template-columns:1fr}
+  .contact-wrap{padding:80px 28px}
+  .ach-row{grid-template-columns:56px 1fr}
+  .ach-tag{display:none}
+}
+@media(max-width:640px){
+  .hero-left{padding:110px 28px 60px}
+  .sm-row{grid-template-columns:1fr}
+  .certs-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<div id="prog"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-mark">K</div>
+  <div class="nav-links">
+    <a href="#tools">Tools</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#achievements">Achievements</a>
+  </div>
+  <div class="nav-contacts">
+    <a href="mailto:kaviyasweatha11@gmail.com" class="nav-contact-link" title="Email">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+    </a>
+    <a href="https://linkedin.com/in/kaviya-m" target="_blank" rel="noopener" class="nav-contact-link" title="LinkedIn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="tel:+918940821652" class="nav-contact-link" title="+91 89408 21652">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </a>
+  </div>
+  <button class="nav-hire" id="hireBtn" style="display:none"></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="pulse-dot"></span>Software Engineer · Chennai, India</div>
+    <h1 class="hero-name">Kaviya <em>M</em></h1>
+    <div class="hero-title">.NET Engineer &nbsp;·&nbsp; SQL Specialist &nbsp;·&nbsp; AI Tool Builder</div>
+    <p class="hero-desc">A results-driven Software Engineer with <strong>5 years of enterprise .NET experience</strong>, delivering production-grade applications across 6+ global sites for 3M. Specialised in <strong>SQL Server, data pipelines, and application migration</strong> — with a track record of zero escalations and a 99% on-time delivery rate.</p>
+    <div class="hero-btns">
+      <a href="#tools" class="btn-primary">See My Tools</a>
+      <a href="#experience" class="btn-sec">View Experience</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="glance-label">Career at a Glance <span>Cognizant · 2019–Present</span></div>
+
+    <div class="career-cards">
+      <div class="career-card">
+        <div class="cc-year">2023</div>
+        <div>
+          <div class="cc-role">Software Engineer</div>
+          <div class="cc-co">Cognizant · Client 3M</div>
+        </div>
+        <div class="cc-badge current">Current</div>
+      </div>
+      <div class="career-card">
+        <div class="cc-year">2021</div>
+        <div>
+          <div class="cc-role">Junior Software Engineer</div>
+          <div class="cc-co">Cognizant · Client 3M</div>
+        </div>
+        <div class="cc-badge past">2 yrs</div>
+      </div>
+      <div class="career-card">
+        <div class="cc-year">2020</div>
+        <div>
+          <div class="cc-role">Programmer Analyst Trainee</div>
+          <div class="cc-co">Cognizant · Client 3M</div>
+        </div>
+        <div class="cc-badge past">6 mo</div>
+      </div>
+      <div class="career-card">
+        <div class="cc-year">2019</div>
+        <div>
+          <div class="cc-role">Intern Trainee</div>
+          <div class="cc-co">Cognizant</div>
+        </div>
+        <div class="cc-badge past">5 mo</div>
+      </div>
+    </div>
+
+    <div class="metric-strip">
+      <div class="metric">
+        <div class="metric-val">99<em>%</em></div>
+        <div class="metric-lbl">On-Time Delivery</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">100<em>+</em></div>
+        <div class="metric-lbl">Interviews Conducted</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">6<em>+</em></div>
+        <div class="metric-lbl">Global Sites</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TOOLS -->
+<section class="sw" id="tools">
+  <div class="si">
+    <div class="sh sr sl">
+      <div>
+        <div class="s-idx">01</div>
+        <div class="s-lbl">Projects</div>
+        <h2 class="s-h">Tools I <em>Built</em></h2>
+      </div>
+      <p class="s-sub">Two production Python tools built using GitHub Copilot — automating the most tedious parts of SQL Server database management.</p>
+    </div>
+  </div>
+  <div class="tools-grid sr">
+    <div class="tool-card">
+      <div class="tool-bg-num">01</div>
+      <div class="tool-chip"><span class="chip-dot"></span>Python Tool</div>
+      <h3 class="tool-name">SP & Table<br>Renamer</h3>
+      <div class="tool-tl">Automated SQL Object Migration</div>
+      <p class="tool-desc">What used to take engineers <strong style="color:var(--ivory)">2–3 days of manual work</strong> — carefully renaming hundreds of stored procedures and tables one by one — now completes in <strong style="color:var(--gold)">seconds</strong>. Built to automate our production application deployments at 3M, it renames large volumes of database objects in a single run, intelligently applies <code style="font-family:var(--mono);font-size:11px;background:var(--bg3);padding:1px 6px;color:var(--gold)">WITH (NOLOCK)</code> hints wherever needed, and supports inline commands for targeted operations.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:32px">
+        <div style="background:var(--bg3);padding:16px 20px">
+          <div style="font-family:var(--serif);font-size:32px;font-weight:300;color:var(--text2);line-height:1;margin-bottom:5px">2–3 <em style="font-style:italic;color:var(--text3);font-size:20px">days</em></div>
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)">Manual effort — before</div>
+        </div>
+        <div style="background:rgba(212,168,67,0.06);padding:16px 20px;border:1px solid rgba(212,168,67,0.15)">
+          <div style="font-family:var(--serif);font-size:32px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:5px">&lt;30 <em style="font-style:italic;color:var(--gold2);font-size:20px">secs</em></div>
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)">With the tool — now</div>
+        </div>
+      </div>
+      <div class="tool-feats">
+        <div class="feat"><div class="feat-ico">↻</div><span>Bulk-renames existing SPs and tables to new naming conventions in a single run</span></div>
+        <div class="feat"><div class="feat-ico">⚡</div><span>Auto-detects and injects NOLOCK hints on applicable SELECT queries for performance</span></div>
+        <div class="feat"><div class="feat-ico">›_</div><span>Inline command mode for targeted, single-object renaming without batch processing</span></div>
+        <div class="feat"><div class="feat-ico">✓</div><span>Full change log generated for review and rollback before committing to the database</span></div>
+      </div>
+      <div class="tool-tags">
+        <span class="ttag">Python</span><span class="ttag">SQL Server</span><span class="ttag">pyodbc</span><span class="ttag">CLI</span><span class="ttag">GitHub Copilot</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-bg-num">02</div>
+      <div class="tool-chip"><span class="chip-dot"></span>Python Tool</div>
+      <h3 class="tool-name">SQL<br>Compare</h3>
+      <div class="tool-tl">Schema · Data · Table Comparison</div>
+      <p class="tool-desc">Before every production release, stored procedures had to be validated against their previous version — a process that meant <strong style="color:var(--ivory)">manually scanning every line of code</strong> side by side to spot regressions. This tool eliminates that entirely by automatically highlighting every difference between the old and new SP versions, so engineers can review changes at a glance before any code reaches PROD.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:32px">
+        <div style="background:var(--bg3);padding:16px 20px">
+          <div style="font-family:var(--serif);font-size:22px;font-weight:300;color:var(--text2);line-height:1.2;margin-bottom:5px">Manual<br><em style="font-style:italic;color:var(--text3);font-size:18px">line-by-line scan</em></div>
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)">Review process — before</div>
+        </div>
+        <div style="background:rgba(212,168,67,0.06);padding:16px 20px;border:1px solid rgba(212,168,67,0.15)">
+          <div style="font-family:var(--serif);font-size:22px;font-weight:300;color:var(--gold);line-height:1.2;margin-bottom:5px">Instant<br><em style="font-style:italic;color:var(--gold2);font-size:18px">diff highlights</em></div>
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)">With the tool — now</div>
+        </div>
+      </div>
+      <div class="tool-feats">
+        <div class="feat"><div class="feat-ico">⊞</div><span>Schema comparison — surfaces missing columns, type mismatches, and index differences</span></div>
+        <div class="feat"><div class="feat-ico">≠</div><span>Row-level data comparison to identify discrepancies between source and target</span></div>
+        <div class="feat"><div class="feat-ico">▤</div><span>Table structure diff with detailed column-by-column breakdown</span></div>
+        <div class="feat"><div class="feat-ico">↓</div><span>One-click generation of ready-to-run ALTER / INSERT / CREATE scripts from any difference</span></div>
+      </div>
+      <div class="tool-tags">
+        <span class="ttag">Python</span><span class="ttag">SQL Server</span><span class="ttag">pyodbc</span><span class="ttag">Script Gen</span><span class="ttag">GitHub Copilot</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section class="sw dark" id="experience">
+  <div class="si">
+    <div class="sh sr sl">
+      <div>
+        <div class="s-idx">02</div>
+        <div class="s-lbl">Career</div>
+        <h2 class="s-h">Professional <em>Experience</em></h2>
+      </div>
+      <p class="s-sub">5+ years at Cognizant embedded within 3M's global operations — growing from trainee to leading production deployments across multiple international sites.</p>
+    </div>
+    <table class="exp-table sr">
+      <tbody>
+        <tr class="exp-row" onclick="toggleExp(this)">
+          <td><span class="exp-num">01</span></td>
+          <td class="exp-period">Jan 2023 — Present</td>
+          <td>
+            <div class="exp-role">Software Engineer</div>
+            <div class="exp-co">Cognizant · Client: 3M · Chennai</div>
+            <div class="exp-bullets">
+              <div class="exp-bullet">Migrated and upgraded legacy .NET applications across 6+ global sites — zero production incidents</div>
+              <div class="exp-bullet">Maintained <strong style="color:var(--text)">99% on-time sprint delivery</strong> across all feature work; resolved defects within SLA, zero escalations</div>
+              <div class="exp-bullet more">Developed and deployed SSIS packages for cross-warehouse data replication across international sites</div>
+              <div class="exp-bullet more">Served as AppLens Champion managing compliance for offshore and onsite teams</div>
+              <div class="exp-bullet more">Coordinated with SAP teams for end-to-end validation improving operational accuracy</div>
+            </div>
+          </td>
+          <td class="exp-tog-cell"><div class="exp-tog">+</div></td>
+        </tr>
+        <tr class="exp-row" onclick="toggleExp(this)">
+          <td><span class="exp-num">02</span></td>
+          <td class="exp-period">Mar 2021 — Jan 2023</td>
+          <td>
+            <div class="exp-role">Junior Software Engineer</div>
+            <div class="exp-co">Cognizant · Client: 3M · Chennai</div>
+            <div class="exp-bullets">
+              <div class="exp-bullet">Delivered .NET application enhancements and resolved critical production defects within SLA — zero escalations</div>
+              <div class="exp-bullet">Developed new application modules supporting migration initiatives, reducing critical incidents by <strong style="color:var(--text)">25%</strong></div>
+              <div class="exp-bullet more">Collaborated with DCIS and DBA teams on password rotation across all environments</div>
+            </div>
+          </td>
+          <td class="exp-tog-cell"><div class="exp-tog">+</div></td>
+        </tr>
+        <tr class="exp-row" onclick="toggleExp(this)">
+          <td><span class="exp-num">03</span></td>
+          <td class="exp-period">Oct 2020 — Mar 2021</td>
+          <td>
+            <div class="exp-role">Programmer Analyst Trainee</div>
+            <div class="exp-co">Cognizant · Client: 3M · Chennai</div>
+            <div class="exp-bullets">
+              <div class="exp-bullet">Designed database models and developed enterprise modules using ASP.NET MVC and Angular</div>
+              <div class="exp-bullet more">Implemented CI/CD pipelines with automated build promotion across QA, UAT, and Production via TFS</div>
+            </div>
+          </td>
+          <td class="exp-tog-cell"><div class="exp-tog">+</div></td>
+        </tr>
+        <tr class="exp-row" onclick="toggleExp(this)">
+          <td><span class="exp-num">04</span></td>
+          <td class="exp-period">Dec 2019 — Apr 2020</td>
+          <td>
+            <div class="exp-role">Intern Trainee</div>
+            <div class="exp-co">Cognizant · Chennai</div>
+            <div class="exp-bullets">
+              <div class="exp-bullet">Built a Windows-based Spa Management System end-to-end using .NET technologies</div>
+            </div>
+          </td>
+          <td class="exp-tog-cell"><div class="exp-tog">+</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section class="sw" id="skills">
+  <div class="si">
+    <div class="sh sr sl">
+      <div>
+        <div class="s-idx">03</div>
+        <div class="s-lbl">Capabilities</div>
+        <h2 class="s-h">Technical<br><em>Stack</em></h2>
+      </div>
+      <p class="s-sub">Full-stack enterprise development with deep specialisation in .NET, SQL Server, CI/CD automation, and AI-assisted tooling.</p>
+    </div>
+  </div>
+  <div class="skills-wrap sr"></div>
+  <div class="skills-matrix sr">
+
+    <div class="sm-row">
+      <!-- Languages -->
+      <div class="skill-block lang-block">
+        <div class="sk-header">
+          <div class="sk-icon">{ }</div>
+          <div>
+            <div class="sk-cat">Languages</div>
+            <div class="sk-note">Core programming</div>
+          </div>
+        </div>
+        <div class="sk-items">
+          <span class="sk-item primary">C#</span>
+          <span class="sk-item primary">Python</span>
+          <span class="sk-item">JavaScript</span>
+          <span class="sk-item">HTML</span>
+          <span class="sk-item">CSS</span>
+        </div>
+      </div>
+
+      <!-- Backend -->
+      <div class="skill-block">
+        <div class="sk-header">
+          <div class="sk-icon">⬡</div>
+          <div>
+            <div class="sk-cat">Backend</div>
+            <div class="sk-note">.NET ecosystem</div>
+          </div>
+        </div>
+        <div class="sk-items">
+          <span class="sk-item primary">.NET Framework</span>
+          <span class="sk-item primary">ASP.NET MVC</span>
+          <span class="sk-item">Web API</span>
+          <span class="sk-item">Entity Framework</span>
+        </div>
+      </div>
+
+      <!-- Frontend -->
+      <div class="skill-block">
+        <div class="sk-header">
+          <div class="sk-icon">◱</div>
+          <div>
+            <div class="sk-cat">Frontend</div>
+            <div class="sk-note">UI & web layer</div>
+          </div>
+        </div>
+        <div class="sk-items">
+          <span class="sk-item primary">Angular</span>
+          <span class="sk-item">HTML5</span>
+          <span class="sk-item">CSS3</span>
+          <span class="sk-item">JavaScript</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-row">
+      <!-- Database -->
+      <div class="skill-block db-block">
+        <div class="sk-header">
+          <div class="sk-icon">⊚</div>
+          <div>
+            <div class="sk-cat">Database & Data</div>
+            <div class="sk-note">Storage, pipelines, migrations</div>
+          </div>
+        </div>
+        <div class="sk-items">
+          <span class="sk-item primary">SQL Server</span>
+          <span class="sk-item primary">SSIS</span>
+          <span class="sk-item">MongoDB</span>
+        </div>
+      </div>
+
+      <!-- Cloud & DevOps -->
+      <div class="skill-block">
+        <div class="sk-header">
+          <div class="sk-icon">☁</div>
+          <div>
+            <div class="sk-cat">Cloud & DevOps</div>
+            <div class="sk-note">Deploy, automate, operate</div>
+          </div>
+        </div>
+        <div class="sk-items">
+          <span class="sk-item primary">Microsoft Azure</span>
+          <span class="sk-item primary">AWS</span>
+          <span class="sk-item">CI/CD Pipelines</span>
+          <span class="sk-item">Salesforce</span>
+        </div>
+      </div>
+
+      <!-- AI -->
+      <div class="skill-block ai-block">
+        <div class="sk-header">
+          <div class="sk-icon">✦</div>
+          <div>
+            <div class="sk-cat">AI & Tooling</div>
+            <div class="sk-note">Next-gen development</div>
+          </div>
+        </div>
+        <div class="sk-items">
+          <span class="sk-item primary">GitHub Copilot</span>
+          <span class="sk-item primary">Claude AI</span>
+          <span class="sk-item">AI Agent Dev</span>
+          <span class="sk-item">Prompt Engineering</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-row full">
+      <!-- Project Management -->
+      <div class="skill-block">
+        <div class="sk-header">
+          <div class="sk-icon">▦</div>
+          <div>
+            <div class="sk-cat">Project Management & Tools</div>
+            <div class="sk-note">Workflow, deployment & collaboration</div>
+          </div>
+        </div>
+        <div class="sk-items">
+          <span class="sk-item">JIRA</span>
+          <span class="sk-item">ITSM</span>
+          <span class="sk-item">TFS</span>
+          <span class="sk-item">Windows Server (RDC)</span>
+          <span class="sk-item">Agile / Scrum</span>
+          <span class="sk-item">Visual Studio</span>
+          <span class="sk-item">VS Code</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTS -->
+<section class="sw dark" id="certifications">
+  <div class="si">
+    <div class="sh sr sl">
+      <div>
+        <div class="s-idx">04</div>
+        <div class="s-lbl">Credentials</div>
+        <h2 class="s-h">Verified<br><em>Certifications</em></h2>
+      </div>
+      <p class="s-sub">Industry-recognised credentials on Credly and Trailhead. Click any card to verify directly.</p>
+    </div>
+    <div class="certs-grid">
+      <a class="cert-card sr" href="https://www.credly.com/badges/f686492b-67b4-4878-a87f-3e032ba4ed36/public_url" target="_blank" rel="noopener">
+        <div class="cert-issuer">Microsoft <span class="cert-arr">↗</span></div>
+        <div class="cert-name">Azure Fundamentals (AZ-900)</div>
+        <div class="cert-val live">No Expiry · Credly Verified</div>
+      </a>
+      <a class="cert-card sr d1" href="https://www.credly.com/badges/ec6abf67-af27-4ca3-ae78-7cc671a5898d/public_url" target="_blank" rel="noopener">
+        <div class="cert-issuer">Amazon Web Services <span class="cert-arr">↗</span></div>
+        <div class="cert-name">AWS Certified Cloud Practitioner</div>
+        <div class="cert-val live">Valid Apr 2028 · Credly Verified</div>
+      </a>
+      <a class="cert-card sr d2" href="https://www.credly.com/badges/aba7e32f-78c1-4469-9919-1d264e1f3e88/public_url" target="_blank" rel="noopener">
+        <div class="cert-issuer">Amazon Web Services <span class="cert-arr">↗</span></div>
+        <div class="cert-name">AWS Cloud Quest: Cloud Practitioner</div>
+        <div class="cert-val">Training Badge · Credly Verified</div>
+      </a>
+      <a class="cert-card sr d1" href="https://www.credly.com/badges/48abf81c-e14e-4743-995f-aa3e64bd1a92/public_url" target="_blank" rel="noopener">
+        <div class="cert-issuer">GitHub <span class="cert-arr">↗</span></div>
+        <div class="cert-name">GitHub Copilot Certification</div>
+        <div class="cert-val">Credly Verified</div>
+      </a>
+      <a class="cert-card sr d2" href="https://www.credly.com/badges/aa18d602-e7f2-471a-b5e0-13e2b8734fce/public_url" target="_blank" rel="noopener">
+        <div class="cert-issuer">GitHub × Microsoft <span class="cert-arr">↗</span></div>
+        <div class="cert-name">Vibe Code Hackathon — GitHub Copilot</div>
+        <div class="cert-val live">Credly Verified</div>
+      </a>
+      <a class="cert-card sr d3" href="https://trailhead.salesforce.com/en/credentials/platformdeveloperi" target="_blank" rel="noopener">
+        <div class="cert-issuer">Salesforce <span class="cert-arr">↗</span></div>
+        <div class="cert-name">Platform Developer I</div>
+        <div class="cert-val">Salesforce Trailhead</div>
+      </a>
+      <a class="cert-card sr" href="https://www.zoho.com/creator/certifications.html" target="_blank" rel="noopener">
+        <div class="cert-issuer">Zoho <span class="cert-arr">↗</span></div>
+        <div class="cert-name">Creator Associate</div>
+        <div class="cert-val">ID: ZC2018-2908</div>
+      </a>
+    </div>
+    <div style="margin-top:36px;text-align:center" class="sr">
+      <a href="https://www.credly.com/users/kaviya-m-11" target="_blank" rel="noopener"
+         style="font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:10px;padding:14px 36px;border:1px solid rgba(212,168,67,.4);transition:all .3s;cursor:none"
+         onmouseenter="this.style.background='var(--gold)';this.style.color='var(--bg)'"
+         onmouseleave="this.style.background='transparent';this.style.color='var(--gold)'">
+        View All on Credly ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section class="sw" id="achievements">
+  <div class="si">
+    <div class="sh sr sl">
+      <div>
+        <div class="s-idx">05</div>
+        <div class="s-lbl">Recognition</div>
+        <h2 class="s-h">Notable<br><em>Wins</em></h2>
+      </div>
+      <p class="s-sub">Recognised for technical leadership, AI innovation, and people development within Cognizant.</p>
+    </div>
+    <div class="ach-list sr">
+      <div class="ach-row">
+        <div class="ach-n">01</div>
+        <div>
+          <div class="ach-title">Technical Panelist — Cognizant Hiring Drives</div>
+          <div class="ach-desc">Selected to conduct technical interviews for off-campus hiring. Evaluated 100+ candidates on .NET, SQL, and problem-solving — recognised for deep technical expertise and communication ability.</div>
+        </div>
+        <div class="ach-tag">Leadership</div>
+      </div>
+      <div class="ach-row">
+        <div class="ach-n">02</div>
+        <div>
+          <div class="ach-title">GitHub Copilot Champion — Microsoft × Cognizant Hackathon</div>
+          <div class="ach-desc">Won the "GitHub Copilot Champion" award, demonstrating innovative use of AI-assisted development to build production-ready tooling at scale.</div>
+        </div>
+        <div class="ach-tag">Winner</div>
+      </div>
+      <div class="ach-row">
+        <div class="ach-n">03</div>
+        <div>
+          <div class="ach-title">Organisation & Account-Level Hackathon Presenter</div>
+          <div class="ach-desc">Presented AI-powered engineering solutions at both organisation-level and account-level internal hackathons within Cognizant.</div>
+        </div>
+        <div class="ach-tag">Innovation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-wrap" id="contact">
+  <div class="contact-inner">
+    <div class="sr sl">
+      <div class="s-idx" style="color:var(--gold)">06</div>
+      <h2 class="contact-h">Let's build<br><em>something.</em></h2>
+      <p class="contact-sub">Open to roles in .NET development, SQL engineering, and AI tooling. Based in Chennai — available for remote or hybrid engagements.</p>
+    </div>
+    <div class="clinks sr sr2">
+      <a class="clink" href="mailto:kaviyasweatha11@gmail.com">
+        <div class="clink-l"><span class="clink-type">Email</span><span class="clink-val">kaviyasweatha11@gmail.com</span></div>
+        <span class="clink-arrow">↗</span>
+      </a>
+      <a class="clink" href="https://linkedin.com/in/kaviya-m" target="_blank" rel="noopener">
+        <div class="clink-l"><span class="clink-type">LinkedIn</span><span class="clink-val">linkedin.com/in/kaviya-m</span></div>
+        <span class="clink-arrow">↗</span>
+      </a>
+      <a class="clink" href="tel:+918940821652">
+        <div class="clink-l"><span class="clink-type">Phone</span><span class="clink-val">+91 89408 21652</span></div>
+        <span class="clink-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CURSOR
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function loop(){
+  rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(loop);
+})();
+const hoverEls='a,button,.tool-card,.exp-row,.cert-card,.ach-row,.career-card,.metric,.sk-item,.ttag';
+document.querySelectorAll(hoverEls).forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('c-hover'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('c-hover'));
+});
+
+// ── HIRE ME — reliable mailto
+document.getElementById('hireBtn').addEventListener('click',function(e){
+  e.preventDefault();
+  e.stopPropagation();
+  var a=document.createElement('a');
+  a.href='mailto:kaviyasweatha11@gmail.com?subject=Hiring%20Enquiry%20%E2%80%94%20Kaviya%20M';
+  a.target='_blank';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+});
+
+// ── PROGRESS BAR
+const prog=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const pct=(scrollY/(document.body.scrollHeight-innerHeight))*100;
+  prog.style.width=pct+'%';
+  document.getElementById('nav').classList.toggle('scrolled',scrollY>60);
+});
+
+// ── ANIMATED DARK BG
+const canvas=document.getElementById('bgCanvas');
+const ctx=canvas.getContext('2d');
+let W,H;
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+resize();window.addEventListener('resize',resize);
+
+// Floating orbs
+const orbs=[
+  {x:.15,y:.2,r:280,vx:.00015,vy:.0001,c:'rgba(212,168,67,'},
+  {x:.85,y:.7,r:220,vx:-.0001,vy:.00018,c:'rgba(78,205,196,'},
+  {x:.5,y:.5,r:350,vx:.00008,vy:-.00012,c:'rgba(212,168,67,'},
+  {x:.3,y:.8,r:180,vx:.00018,vy:-.0001,c:'rgba(78,205,196,'},
+];
+// Particles
+const pts=[];
+for(let i=0;i<80;i++){
+  pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.2+.3});
+}
+let t=0;
+function draw(){
+  t++;
+  ctx.clearRect(0,0,W,H);
+
+  // Background orbs
+  orbs.forEach(o=>{
+    o.x+=o.vx;o.y+=o.vy;
+    if(o.x<0||o.x>1)o.vx*=-1;
+    if(o.y<0||o.y>1)o.vy*=-1;
+    const grd=ctx.createRadialGradient(o.x*W,o.y*H,0,o.x*W,o.y*H,o.r);
+    grd.addColorStop(0,o.c+'0.045)');
+    grd.addColorStop(1,o.c+'0)');
+    ctx.fillStyle=grd;
+    ctx.fillRect(0,0,W,H);
+  });
+
+  // Particles + connections
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;
+    if(p.y<0||p.y>H)p.vy*=-1;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(212,168,67,0.25)';ctx.fill();
+  });
+  for(let i=0;i<pts.length;i++){
+    for(let j=i+1;j<pts.length;j++){
+      const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+      if(d<100){
+        ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(212,168,67,${(1-d/100)*.06})`;ctx.lineWidth=.5;ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+
+// ── EXP TOGGLE
+function toggleExp(row){
+  const open=row.classList.contains('open');
+  document.querySelectorAll('.exp-row.open').forEach(r=>{r.classList.remove('open');r.querySelector('.exp-tog').textContent='+'});
+  if(!open){row.classList.add('open');row.querySelector('.exp-tog').textContent='−'}
+}
+
+// ── SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}});
+},{threshold:.07});
+document.querySelectorAll('.sr').forEach(el=>obs.observe(el));
+
+// ── SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+  });
+});
+</script>
+</body>
+</html>
